@@ -20,7 +20,7 @@ namespace Cannabismod
         {
             base.Start(api);
 
-            api.RegisterItemClass("Bivalve",typeof(ItemBivalve));
+            api.RegisterItemClass("JointLit",typeof(ItemJointLit));
         }
     }
 	
