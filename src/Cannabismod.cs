@@ -30,6 +30,8 @@ namespace Cannabismod
 		float curX;
         float curY;
         
+		public static SimpleParticleProperties smokeParticles;
+		
         float prevSecUsed;
         LCGRandom rnd;
 	
@@ -141,8 +143,13 @@ namespace Cannabismod
                     slot.TakeOut(1);
                     slot.MarkDirty();
 					ItemJointLit.smokeParticles.MinPos = byEntity.SidedPos.AheadCopy(this.Attributes["smokePVelFOffset"].AsDouble(2.0)).XYZ.Add(0.0, byEntity.LocalEyePos.Y, 0.0);
-					byEntity.World.SpawnParticles(ItemRifle.smokeParticles, null);
-					byEntity.GetBehavior<EntityBehaviorTemporalStabilityAffected>().AddStability(0.30);
+					byEntity.World.SpawnParticles(ItemJointLit.smokeParticles, null);
+					if (byEntity.GetBehavior<EntityBehaviorTemporalStabilityAffected>() != null)
+					{
+						double stability = byEntity.WatchedAttributes.GetDouble("temporalStability");
+						byEntity.WatchedAttributes.SetDouble("temporalStability",Math.Min(1.0,stability+0.30));
+						//byEntity.GetBehavior<EntityBehaviorTemporalStabilityAffected>().AddStability(0.30);
+					}
                 } else
                 {
                     slot.Itemstack.TempAttributes.SetBool("consumed", true);
