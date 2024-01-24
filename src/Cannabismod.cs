@@ -146,12 +146,8 @@ namespace Cannabismod
 					byEntity.World.SpawnParticles(ItemJointLit.smokeParticles, null);
 					if (byEntity.GetBehavior<EntityBehaviorTemporalStabilityAffected>() != null)
 					{
-						//byEntity.GetBehavior<EntityBehaviorTemporalStabilityAffected>().AddStability(0.3);
-						//((byEntity as EntityPlayer)?.Player as IServerPlayer)?.BroadcastPlayerData();
 						double stability = byEntity.WatchedAttributes.GetDouble("temporalStability");
 						byEntity.WatchedAttributes.SetDouble("temporalStability",Math.Min(1.0,stability+0.30));
-						byEntity.WatchedAttributes.MarkDirty();
-						//byEntity.GetBehavior<EntityBehaviorTemporalStabilityAffected>().AddStability(0.30);
 					}
                 } else
                 {
