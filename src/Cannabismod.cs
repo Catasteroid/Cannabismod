@@ -147,7 +147,14 @@ namespace Cannabismod
 					if (byEntity.GetBehavior<EntityBehaviorTemporalStabilityAffected>() != null)
 					{
 						double stability = byEntity.WatchedAttributes.GetDouble("temporalStability");
-						byEntity.WatchedAttributes.SetDouble("temporalStability",Math.Min(1.0,stability+0.30));
+						byEntity.WatchedAttributes.SetDouble("temporalStability",Math.Min(1.0,stability+this.Attributes["stabilityChange"].AsFloat(0.25)));
+					}
+					float intox = byEntity.WatchedAttributes.GetFloat("intoxication");
+					byEntity.WatchedAttributes.SetFloat("intoxication", Math.Min(1.1f, intox + this.Attributes["intoxicationChange"].AsFloat(0.25)));
+					float healthChange = this.Attributes["healthChange"].AsFloat(0.25);
+					if (healthChange != 0)
+					{
+						byEntity.ReceiveDamage(new DamageSource() { Source = EnumDamageSource.Internal, Type = healthChange > 0 ? EnumDamageType.Heal : EnumDamageType.Poison }, Math.Abs(healthChange));
 					}
                 } else
                 {
