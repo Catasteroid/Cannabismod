@@ -147,11 +147,11 @@ namespace Cannabismod
 					if (byEntity.GetBehavior<EntityBehaviorTemporalStabilityAffected>() != null)
 					{
 						double stability = byEntity.WatchedAttributes.GetDouble("temporalStability");
-						byEntity.WatchedAttributes.SetDouble("temporalStability",Math.Min(1.0,stability+this.Attributes["stabilityChange"].AsFloat(0.25)));
+						byEntity.WatchedAttributes.SetDouble("temporalStability",Math.Min(1.0,stability+this.Attributes["stabilityChange"].AsDouble(0.25)));
 					}
 					float intox = byEntity.WatchedAttributes.GetFloat("intoxication");
-					byEntity.WatchedAttributes.SetFloat("intoxication", Math.Min(1.1f, intox + this.Attributes["intoxicationChange"].AsFloat(0.25)));
-					float healthChange = this.Attributes["healthChange"].AsFloat(0.25);
+					byEntity.WatchedAttributes.SetFloat("intoxication", Math.Min(1.1f, intox + this.Attributes["intoxicationChange"].AsFloat(0.25f)));
+					float healthChange = this.Attributes["healthChange"].AsFloat(0.25f);
 					if (healthChange != 0)
 					{
 						byEntity.ReceiveDamage(new DamageSource() { Source = EnumDamageSource.Internal, Type = healthChange > 0 ? EnumDamageType.Heal : EnumDamageType.Poison }, Math.Abs(healthChange));
@@ -178,9 +178,9 @@ namespace Cannabismod
 		public override void GetHeldItemInfo(ItemSlot inSlot, StringBuilder dsc, IWorldAccessor world, bool withDebugInfo)
         {
             base.GetHeldItemInfo(inSlot, dsc, world, withDebugInfo);
-			dsc.AppendLine(Lang.Get("Increases temporal stability: +" + (100* this.Attributes["stabilityChange"].AsFloat(0.25))+"%"));
-            dsc.AppendLine(Lang.Get("Health change: " + this.Attributes["healthChange"].AsFloat(1)));
-			dsc.AppendLine(Lang.Get("Intoxication: " + this.Attributes["intoxicationChange"].AsFloat(0.25)));
+			dsc.AppendLine(Lang.Get("Increases temporal stability: +" + (100* this.Attributes["stabilityChange"].AsDouble(0.25))+"%"));
+            dsc.AppendLine(Lang.Get("Health change: " + this.Attributes["healthChange"].AsFloat(1f)));
+			dsc.AppendLine(Lang.Get("Intoxication: " + this.Attributes["intoxicationChange"].AsFloat(0.25f)));
 		}
 	
 	}
