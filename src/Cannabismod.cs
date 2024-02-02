@@ -174,6 +174,14 @@ namespace Cannabismod
                 }
             };
         }
+		
+		public override void GetHeldItemInfo(ItemSlot inSlot, StringBuilder dsc, IWorldAccessor world, bool withDebugInfo)
+        {
+            base.GetHeldItemInfo(inSlot, dsc, world, withDebugInfo);
+			dsc.AppendLine(Lang.Get("Increases temporal stability: +" + (100* this.Attributes["stabilityChange"].AsFloat(0.25))+"%"));
+            dsc.AppendLine(Lang.Get("Health change: " + this.Attributes["healthChange"].AsFloat(1)));
+			dsc.AppendLine(Lang.Get("Intoxication: " + this.Attributes["intoxicationChange"].AsFloat(0.25)));
+		}
 	
 	}
 	
